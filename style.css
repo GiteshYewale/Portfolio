@@ -1,0 +1,1435 @@
+/* ============================================================
+   PORTFOLIO STYLESHEET
+   ------------------------------------------------------------
+   Sections in this file:
+     1. Fonts & colors (CSS variables)
+     2. Global reset
+     3. Loading screen
+     4. Scroll progress bar
+     5. Custom cursor
+     6. Back to top button
+     7. Main layout (left + right containers)
+     8. Navbar & hamburger menu
+     9. Social icons
+    10. Content styles (headings, text, buttons, stats)
+    11. About, Skills, Work, Projects, Contact sections
+    12. Profile circles (design)
+    13. SPA section switching
+    14. Responsive (media queries for all devices)
+   ============================================================ */
+
+
+/* ===== 1. FONTS & COLORS =====
+   All colors are stored as variables at the top so the whole
+   site can be re-themed by changing only these lines. */
+:root {
+    /* Fonts */
+    --font-main: 'Poppins', sans-serif;
+    --font-text: 'Inter', sans-serif;
+
+    /* Brand colors */
+    --primary: #5db9ee;      /* light blue (main accent) */
+    --primary-rgb: 93, 185, 238;
+    --accent: #3877ff;       /* deep blue (secondary accent) */
+    --accent-rgb: 56, 119, 255;
+
+    /* Backgrounds */
+    --bg: #262525;           /* page background */
+    --bg-rgb: 38, 37, 37;
+    --dark: #1e1e1e;         /* mobile menu background */
+    --dark-rgb: 30, 30, 30;
+
+    /* Text colors */
+    --white: #ffffff;
+    --white-rgb: 255, 255, 255;
+    --text-light: #e0e0e0;
+    --text-light-rgb: 224, 224, 224;
+    --text-dim: #bbb;
+
+    /* Shadows */
+    --shadow-accent: rgba(var(--accent-rgb), 0.4);
+    --shadow-soft: rgba(0, 0, 0, 0.2);
+}
+
+
+/* ===== 2. GLOBAL RESET ===== */
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: var(--font-main);
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    background-color: var(--bg);
+    overflow-x: hidden;              /* stop sideways scrolling on any device */
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+
+/* ===== 3. LOADING SCREEN ===== */
+.loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+/* .hide is added by JavaScript to fade the loader out */
+.loader-wrapper.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-circle {
+    width: 100%;
+    height: 100%;
+    border: 3px solid transparent;
+    border-top: 3px solid var(--primary);
+    border-right: 3px solid var(--accent);
+    border-radius: 50%;
+    animation: spinLoader 1s linear infinite;
+}
+
+.loader-text {
+    position: absolute;
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: pulseLoader 1s ease-in-out infinite;
+}
+
+@keyframes spinLoader {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulseLoader {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+
+/* ===== 4. SCROLL PROGRESS BAR ===== */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;                       /* width is set by JavaScript on scroll */
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
+    z-index: 99998;
+    transition: width 0.1s ease;
+}
+
+
+/* ===== 5. CUSTOM CURSOR ===== */
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 99997;
+    transition: transform 0.1s ease;
+    transform: translate(-50%, -50%);
+}
+
+.cursor-outline {
+    width: 35px;
+    height: 35px;
+    border: 2px solid rgba(var(--primary-rgb), 0.4);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 99996;
+    transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+    transform: translate(-50%, -50%);
+}
+
+/* Grows bigger when hovering interactive elements */
+.cursor-outline.hover {
+    width: 55px;
+    height: 55px;
+    border-color: var(--primary);
+    background: rgba(var(--primary-rgb), 0.05);
+}
+
+
+/* ===== 6. BACK TO TOP BUTTON ===== */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    border: none;
+    color: var(--white);
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 9990;
+    opacity: 0;                      /* hidden until user scrolls (JS) */
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 20px var(--shadow-accent);
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 30px rgba(var(--accent-rgb), 0.6);
+}
+
+
+/* ===== 7. MAIN LAYOUT =====
+   Desktop has two parts side by side:
+   - left-container  : 70% width, holds the content
+   - right-container : 30% width, fixed to the right, holds profile photo */
+.protfolio {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+}
+
+.left-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    padding-top: 15vh;               /* leave space for fixed navbar */
+    background-color: var(--bg);
+    width: 70%;
+    padding-left: 3rem;
+    transition: width 0.5s ease;
+}
+
+/* When a section other than Home is open, content takes full width */
+.protfolio.full-width .left-container {
+    width: 100%;
+}
+
+.protfolio.full-width .right-container {
+    display: none;
+}
+
+.protfolio.full-width .design {
+    display: none;
+}
+
+/* In full-width mode give the inner grids more room */
+@media (min-width: 769px) {
+    .protfolio.full-width .section {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    .protfolio.full-width .containt {
+        margin: 1.5rem 2.5rem 2rem 2rem;
+        max-width: none;
+    }
+
+    .protfolio.full-width .projects-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        max-width: none;
+        width: 100%;
+    }
+
+    .protfolio.full-width .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        max-width: none;
+        width: 100%;
+    }
+
+    .protfolio.full-width .about-cards {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        max-width: none;
+    }
+
+    .protfolio.full-width .work-container {
+        max-width: none;
+    }
+
+    .protfolio.full-width .contact-wrapper {
+        max-width: none;
+        width: 100%;
+    }
+
+    .protfolio.full-width .skill-tags {
+        max-width: none;
+    }
+}
+
+.right-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(-45deg, var(--accent), var(--bg) 70%);
+    width: 30%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+}
+
+
+/* ===== 8. NAVBAR & HAMBURGER MENU ===== */
+.navlist {
+    display: flex;
+    gap: 3.5rem;
+    height: 15vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1000;
+    background: rgba(var(--bg-rgb), 0.8);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(var(--white-rgb), 0.05);
+}
+
+.navlist li {
+    list-style: none;
+}
+
+.navlist li a {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1rem;
+    color: var(--white);
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.navlist li a:hover,
+.navlist li a.active {
+    color: var(--primary);
+}
+
+/* Underline effect that grows from right to left on hover */
+.navlist li a::after {
+    content: "";
+    position: absolute;
+    background: var(--primary);
+    width: 100%;
+    height: .15rem;
+    left: 0;
+    bottom: -5px;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform .4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.navlist li a:hover::after,
+.navlist li a.active::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* Hamburger is hidden on desktop, shown on mobile (see media queries) */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: rgba(var(--bg-rgb), 0.9);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(var(--white-rgb), 0.1);
+    border-radius: 8px;
+    padding: 10px 12px;
+    cursor: pointer;
+    z-index: 10001;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    transition: all 0.3s ease;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: var(--primary);
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+/* Turn the three lines into an X when the menu is open */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
+/* ===== 9. SOCIAL ICONS (left side) ===== */
+.icons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    z-index: 500;
+    position: relative;
+}
+
+.icons .fa-brands {
+    cursor: pointer;
+    font-size: 1.7rem;
+    color: var(--text-dim);
+    transition: all 0.3s ease;
+    background: linear-gradient(var(--white), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.icons a:hover .fa-brands {
+    transform: scale(1.3) translateY(-3px);
+}
+
+
+/* ===== 10. CONTENT STYLES ===== */
+.containt {
+    margin-left: 4rem;
+    margin-top: 2rem;
+}
+
+.containt .intro {
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.containt .subheading {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-light);
+    margin-top: 0.5rem;
+    font-family: var(--font-main);
+}
+
+.containt .intro span {
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+.containt h1 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);   /* grows and shrinks with screen */
+    color: var(--primary);
+    font-family: var(--font-main);
+    margin-top: 1rem;
+    line-height: 1.2;
+}
+
+.containt .detail {
+    font-family: var(--font-text);
+    font-weight: 300;
+    font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+    line-height: 1.7;
+    color: var(--text-light);
+    max-width: 40rem;
+    margin: 1rem 0 2.5rem 0;
+}
+
+/* ===== BUTTONS ===== */
+.btn-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-container button {
+    border: 0.1rem solid var(--primary);
+    font-size: 1.1rem;
+    padding: .8rem 1.8rem;
+    border-radius: .5rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background-color: transparent;
+    color: var(--primary);
+    font-family: var(--font-main);
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Filling gradient that slides in on hover */
+.btn-container button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    transition: left 0.4s ease;
+    z-index: -1;
+}
+
+.btn-container button:hover::before {
+    left: 0;
+}
+
+.btn-container button:hover {
+    color: var(--white);
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px var(--shadow-accent);
+}
+
+.btn-container button i {
+    margin-right: 8px;
+}
+
+/* ===== STATS (Home section) ===== */
+.stats-row {
+    display: flex;
+    gap: 3rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(var(--white-rgb), 0.08);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    font-family: var(--font-main);
+}
+
+.stat-plus {
+    font-size: 1.5rem;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: rgba(var(--white-rgb), 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0.3rem;
+}
+
+
+/* ===== 11. SECTION STYLES ===== */
+
+/* ===== ABOUT CARDS ===== */
+.about-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0 3rem 0;
+    max-width: 45rem;
+}
+
+.about-card {
+    background: rgba(var(--white-rgb), 0.03);
+    border: 1px solid rgba(var(--white-rgb), 0.05);
+    border-radius: 12px;
+    padding: 1.8rem;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    backdrop-filter: blur(10px);
+}
+
+.about-card:hover {
+    border-color: rgba(var(--primary-rgb), 0.4);
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px var(--shadow-soft);
+    background: rgba(var(--white-rgb), 0.06);
+}
+
+.about-card-icon {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.about-card h3 {
+    color: var(--white);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.about-card p {
+    color: rgba(var(--text-light-rgb), 0.6);
+    font-size: 0.85rem;
+    font-family: var(--font-text);
+    line-height: 1.5;
+}
+
+/* ===== SKILLS ===== */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 2rem 0;
+    max-width: 60rem;
+}
+
+.skill-category {
+    background: rgba(var(--white-rgb), 0.03);
+    border: 1px solid rgba(var(--white-rgb), 0.05);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.4s ease;
+}
+
+.skill-category:hover {
+    border-color: rgba(var(--primary-rgb), 0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.skill-category-title {
+    color: var(--primary);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.skill-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.skill-name {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-family: var(--font-text);
+}
+
+.skill-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(var(--white-rgb), 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+/* The colored part of the bar. Width goes from 0% to the
+   value in data-width (set by JavaScript when Skills opens). */
+.skill-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--primary));
+    border-radius: 3px;
+    transition: width 1.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 2rem;
+    max-width: 60rem;
+}
+
+.tag {
+    padding: 0.5rem 1.2rem;
+    border: 1px solid rgba(var(--primary-rgb), 0.3);
+    border-radius: 20px;
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-family: var(--font-text);
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.tag:hover {
+    background: rgba(var(--primary-rgb), 0.1);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* ===== WORK EXPERIENCE (timeline) ===== */
+.work-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    position: relative;
+    padding-left: 2.5rem;
+    border-left: 2px solid rgba(var(--accent-rgb), 0.3);
+    margin-top: 3rem;
+    max-width: 45rem;
+    margin-bottom: 3rem;
+}
+
+.work-item {
+    position: relative;
+}
+
+/* Round icon sitting on the timeline line */
+.work-icon {
+    position: absolute;
+    left: -3.45rem;
+    top: 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--bg);
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary);
+    font-size: 0.9rem;
+    z-index: 1;
+    box-shadow: 0 0 15px var(--shadow-accent);
+    animation: pulseIcon 3s infinite;
+}
+
+@keyframes pulseIcon {
+    0% { box-shadow: 0 0 0 0 var(--shadow-accent); }
+    70% { box-shadow: 0 0 0 10px rgba(var(--accent-rgb), 0); }
+    100% { box-shadow: 0 0 0 0 var(--shadow-accent); }
+}
+
+/* ===== PROJECTS ===== */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+    width: 100%;
+    max-width: 60rem;
+    margin-bottom: 4rem;
+}
+
+.project-icon {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.project-tech {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.project-tech span {
+    padding: 0.3rem 0.8rem;
+    background: rgba(var(--accent-rgb), 0.15);
+    border-radius: 15px;
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-family: var(--font-text);
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
+}
+
+/* ===== CONTACT ===== */
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;   /* info on left, form on right */
+    gap: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 4rem;
+    max-width: 60rem;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.contact-icon {
+    font-size: 1.3rem;
+    color: var(--primary);
+    margin-top: 0.3rem;
+}
+
+.contact-item h4 {
+    color: var(--white);
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+.contact-item p {
+    color: rgba(var(--text-light-rgb), 0.6);
+    font-size: 0.9rem;
+    font-family: var(--font-text);
+}
+
+.contact-socials {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.contact-socials a {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(var(--white-rgb), 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary);
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.contact-socials a:hover {
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    border-color: transparent;
+    color: var(--white);
+    transform: translateY(-3px);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    background: rgba(var(--white-rgb), 0.04);
+    border: 1px solid rgba(var(--white-rgb), 0.08);
+    border-radius: 8px;
+    color: var(--white);
+    font-size: 0.95rem;
+    font-family: var(--font-text);
+    outline: none;
+    transition: all 0.3s ease;
+    resize: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--primary);
+    background: rgba(var(--primary-rgb), 0.04);
+    box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.1);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(var(--white-rgb), 0.3);
+}
+
+.btn-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    border: none;
+    border-radius: 8px;
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: var(--font-main);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px var(--shadow-accent);
+}
+
+.btn-submit i {
+    transition: transform 0.3s ease;
+}
+
+.btn-submit:hover i {
+    transform: translateX(5px);
+}
+
+
+/* ===== 12. PROFILE CIRCLES (Home section) ===== */
+.design {
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* Hidden when user leaves the Home section (JS adds this class) */
+.design.design-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.design .circle {
+    aspect-ratio: 1;
+    position: fixed;
+    border-radius: 50%;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+}
+
+/* First circle: rotating decorative ring */
+.circle:nth-child(1) {
+    background: linear-gradient(90deg, transparent 50%, rgba(var(--bg-rgb), 0.2) 50%);
+    width: 38rem;
+    animation: rotateCircle 15s linear infinite;
+}
+
+@keyframes rotateCircle {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Second circle: the profile photo */
+.circle:nth-child(2) {
+    background: var(--white);
+    width: 30rem;
+    background-image: url("profile.jpg");
+    background-size: 100%;
+    background-position: 70% 60%;
+    background-repeat: no-repeat;
+    border: .3rem solid rgba(var(--white-rgb), 0.8);
+    box-shadow:
+        0 0 2rem var(--shadow-accent),
+        0 0 5rem rgba(var(--accent-rgb), 0.2),
+        inset 0 0 3rem rgba(0, 0, 0, 0.3);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease;
+    cursor: pointer;
+}
+
+.circle:nth-child(2):hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow:
+        0 0 3rem rgba(var(--accent-rgb), 0.6),
+        0 0 6rem rgba(var(--accent-rgb), 0.4),
+        inset 0 0 2rem rgba(0, 0, 0, 0.2);
+}
+
+
+/* ===== 13. SPA SECTION SWITCHING =====
+   Only one section is visible at a time.
+   .hidden-section = hidden
+   .active-section = visible */
+.hidden-section {
+    display: none;
+}
+
+.active-section {
+    display: block;
+    animation: fadeIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ===== CARD STYLES SHARED BY WORK & PROJECTS ===== */
+.work-content,
+.project-content {
+    background: rgba(var(--white-rgb), 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(var(--white-rgb), 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Gradient glow overlay, appears on hover */
+.work-content::before,
+.project-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1), transparent);
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.work-content:hover,
+.project-content:hover {
+    border-color: rgba(var(--primary-rgb), 0.5);
+    transform: translateX(10px) translateY(-5px);
+    background: rgba(var(--white-rgb), 0.06);
+    box-shadow: 0 10px 30px var(--shadow-soft);
+}
+
+.work-content:hover::before,
+.project-content:hover::before {
+    opacity: 1;
+}
+
+.work-content .year {
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.work-content h3,
+.project-content h3 {
+    color: var(--white);
+    font-size: 1.4rem;
+    margin: 0.2rem 0 0.4rem 0;
+    font-weight: 600;
+}
+
+.work-content .company {
+    color: rgba(var(--white-rgb), 0.6);
+    font-size: 1rem;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 1.2rem;
+}
+
+.work-content p,
+.project-content p {
+    color: rgba(var(--text-light-rgb), 0.8);
+    font-size: 1rem;
+    line-height: 1.7;
+    font-family: var(--font-text);
+}
+
+
+/* ===== 14. RESPONSIVE STYLES =====
+   The site adapts to 5 groups of screen sizes:
+   1) Large desktop (>1400px)  -> default styles
+   2) Laptop      (1101-1400px)
+   3) Tablet      (769-1100px)
+   4) Mobile      (<=768px)     -> hamburger menu appears
+   5) Small phone (<=480px, <=360px) and landscape mode */
+
+/* ---------- 2. LAPTOP: 1101-1400px ---------- */
+@media screen and (max-width: 1400px) and (min-width: 1101px) {
+    .navlist {
+        gap: 2.5rem;
+    }
+    .circle:nth-child(1) {
+        width: 30rem;
+    }
+    .circle:nth-child(2) {
+        width: 23rem;
+    }
+    .containt {
+        margin-left: 3rem;
+    }
+    .containt .detail {
+        max-width: 34rem;
+    }
+}
+
+/* ---------- 3. TABLET / SMALL LAPTOP: 769-1100px ---------- */
+@media screen and (max-width: 1100px) and (min-width: 769px) {
+    .navlist {
+        gap: 1.5rem;
+    }
+    .navlist li a {
+        font-size: 0.9rem;
+    }
+    .left-container {
+        width: 62%;
+        padding-left: 2rem;
+    }
+    .right-container {
+        width: 38%;
+    }
+    .circle:nth-child(1) {
+        width: 17rem;
+        left: 77%;
+    }
+    .circle:nth-child(2) {
+        width: 13.5rem;
+        left: 77%;
+    }
+    .icons {
+        gap: 1.5rem;
+    }
+    .containt {
+        margin-left: 1.5rem;
+    }
+    .containt h1 {
+        font-size: 2.6rem;
+    }
+    .containt .detail {
+        max-width: 30rem;
+        margin-bottom: 1.8rem;
+    }
+    .stats-row {
+        gap: 2rem;
+    }
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .about-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ---------- 4. MOBILE: <=768px ----------
+   Layout becomes one column.
+   Navbar turns into a slide-in menu opened by the hamburger. */
+@media screen and (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .navlist {
+        gap: 0;
+        height: auto;
+        padding: 0;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: -100%;                /* starts hidden off the right edge */
+        width: 250px;
+        height: 100vh;
+        height: 100dvh;              /* dvh = works with mobile browser bars */
+        background: rgba(var(--dark-rgb), 0.98);
+        backdrop-filter: blur(20px);
+        justify-content: flex-start;
+        padding-top: 5rem;
+        transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        border-left: 1px solid rgba(var(--white-rgb), 0.05);
+    }
+
+    .navlist.open {
+        right: 0;                    /* .open is added by JS to show menu */
+    }
+
+    .navlist li {
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(var(--white-rgb), 0.05);
+    }
+
+    .navlist li a {
+        font-size: 1.1rem;
+    }
+
+    .protfolio {
+        flex-direction: column;
+    }
+
+    .left-container {
+        width: 100%;
+        padding-left: 0;
+        padding-top: 0;
+        align-items: center;
+        flex-direction: column;
+        order: 2;
+    }
+
+    .icons {
+        flex-direction: row;         /* icons go side by side on mobile */
+        width: 100%;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        order: 2;
+    }
+
+    .section {
+        order: 1;
+        width: 100%;
+    }
+
+    .right-container {
+        display: none;               /* side panel is removed on mobile */
+    }
+
+    .design {
+        order: 1;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: auto;
+        margin-top: 7rem;
+        margin-bottom: 1rem;
+    }
+
+    .design .circle {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+    }
+
+    .circle:nth-child(1) {
+        display: none;               /* rotating ring is hidden on mobile */
+    }
+
+    .circle:nth-child(2) {
+        width: 14rem;
+        background-position: center;
+        border: .2rem solid rgba(var(--white-rgb), 0.8);
+        box-shadow:
+            0 0 1rem var(--shadow-accent),
+            0 0 3rem rgba(var(--accent-rgb), 0.2);
+    }
+
+    .circle:nth-child(2):hover {
+        transform: scale(1.05) !important;
+    }
+
+    .containt {
+        margin-left: 0;
+        margin-top: 0;
+        padding: 0 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
+    .containt h1 {
+        font-size: 2.5rem;
+        line-height: 1.1;
+        margin-bottom: 0.5rem;
+    }
+
+    .containt .detail {
+        text-align: center;
+        margin: 1rem auto 2rem;
+        padding: 0 0.5rem;
+    }
+
+    .btn-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+        width: 100%;
+    }
+
+    .btn-container button {
+        width: 100%;
+        max-width: 22rem;
+    }
+
+    .stats-row {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+    }
+
+    .about-cards {
+        grid-template-columns: 1fr;
+        max-width: 25rem;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+        max-width: 25rem;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .work-container {
+        padding-left: 1.5rem;
+        margin-top: 2rem;
+        border-left: 1px solid rgba(var(--accent-rgb), 0.3);
+        max-width: 100%;
+    }
+
+    .work-icon {
+        left: -2.4rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 0.7rem;
+    }
+
+    .work-item {
+        text-align: left;
+    }
+
+    .work-content, .project-content {
+        padding: 1.5rem;
+    }
+
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .cursor-dot, .cursor-outline {
+        display: none;               /* custom cursor is pointless on touch */
+    }
+
+    /* Prevent iOS auto-zoom when focusing form inputs */
+    .form-group input,
+    .form-group textarea {
+        font-size: 1rem;
+    }
+}
+
+/* ---------- 5. SMALL PHONE: <=480px ---------- */
+@media screen and (max-width: 480px) {
+    .navlist {
+        width: 100%;                 /* menu covers full screen */
+    }
+    .containt {
+        padding: 0 1.25rem;
+    }
+    .containt h1 {
+        font-size: 2.2rem;
+    }
+    .design {
+        margin-top: 5.5rem;
+    }
+    .circle:nth-child(2) {
+        width: 12rem;
+    }
+    .icons .fa-brands {
+        font-size: 1.4rem;
+    }
+    .stats-row {
+        gap: 1.5rem;
+    }
+    .stat-number {
+        font-size: 2rem;
+    }
+    .skill-tags {
+        justify-content: center;
+    }
+    .work-container {
+        border-left: none;
+        padding-left: 0;
+    }
+    .work-icon {
+        position: relative;
+        left: 0;
+        top: 0;
+        margin-bottom: 1rem;
+        display: inline-flex;
+    }
+    .work-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+/* ---------- VERY SMALL PHONE: <=360px ---------- */
+@media screen and (max-width: 360px) {
+    .containt {
+        padding: 0 1rem;
+    }
+    .containt h1 {
+        font-size: 1.9rem;
+    }
+    .circle:nth-child(2) {
+        width: 10rem;
+    }
+    .stats-row {
+        gap: 1rem;
+    }
+    .stat-number {
+        font-size: 1.7rem;
+    }
+    .stat-label {
+        font-size: 0.72rem;
+        letter-spacing: 0.5px;
+    }
+    .btn-container button {
+        padding: 0.75rem 1rem;
+    }
+}
+
+/* ---------- LANDSCAPE PHONE: <=768px wide, short height ---------- */
+@media screen and (max-width: 768px) and (orientation: landscape) and (max-height: 500px) {
+    .design {
+        margin-top: 4rem;
+    }
+    .circle:nth-child(2) {
+        width: 8rem;
+    }
+    .icons {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    .containt .detail {
+        margin-bottom: 1.5rem;
+    }
+}

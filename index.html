@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gitesh Yewale - Software Engineer | Portfolio showcasing projects, skills, and professional experience">
+    <meta name="keywords" content="Gitesh Yewale, Software Engineer, Web Developer, Portfolio, React, JavaScript">
+    <meta name="author" content="Gitesh Yewale">
+    <meta property="og:title" content="Gitesh Yewale - Software Engineer Portfolio">
+    <meta property="og:description" content="Passionate Software Engineer building future-ready web solutions.">
+    <meta property="og:type" content="website">
+    <title>Gitesh Yewale | Software Engineer</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css?v=5">
+    <!-- Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- AOS (Animate On Scroll) library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+</head>
+
+<body>
+
+    <!-- ===== LOADING SCREEN ===== -->
+    <div class="loader-wrapper" id="loader">
+        <div class="loader">
+            <div class="loader-circle"></div>
+            <span class="loader-text">GY</span>
+        </div>
+    </div>
+
+    <!-- ===== SCROLL PROGRESS BAR (top of page) ===== -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- ===== BACK TO TOP BUTTON ===== -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- ===== MAIN PORTFOLIO ===== -->
+    <div class="protfolio">
+
+        <!-- Hamburger icon (only visible on mobile) -->
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- Navigation bar -->
+        <ul class="navlist" id="navlist">
+            <li><a href="#" onclick="showSection('home')" class="nav-link active" data-section="home">Home</a></li>
+            <li><a href="#" onclick="showSection('about')" class="nav-link" data-section="about">About</a></li>
+            <li><a href="#" onclick="showSection('skills')" class="nav-link" data-section="skills">Skills</a></li>
+            <li><a href="#" onclick="showSection('work')" class="nav-link" data-section="work">Work</a></li>
+            <li><a href="#" onclick="showSection('projects')" class="nav-link" data-section="projects">Projects</a></li>
+            <li><a href="#" onclick="showSection('contact')" class="nav-link" data-section="contact">Contact</a></li>
+        </ul>
+
+        <!-- ===== LEFT SIDE: ALL CONTENT ===== -->
+        <div class="left-container">
+
+            <!-- Social media icons -->
+            <div class="icons">
+                <a href="https://github.com/GiteshYewale" target="_blank" rel="noopener noreferrer"> <i class="fa-brands fa-github"></i> </a>
+                <a href="https://www.linkedin.com/in/gitesh-yewale-990211311/" target="_blank" rel="noopener noreferrer"> <i class="fa-brands fa-linkedin-in"></i> </a>
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i> </a>
+                <a href="#"><i class="fa-brands fa-codepen"></i></a>
+            </div>
+
+            <!-- ===== HOME SECTION ===== -->
+            <div id="home" class="section active-section">
+                <div class="containt">
+                    <p class="intro" data-aos="fade-up" data-aos-delay="100">Hi, I am <span>Gitesh Yewale</span></p>
+                    <h1 data-aos="fade-up" data-aos-delay="200">Software Engineer</h1>
+                    <p class="subheading" data-aos="fade-up" data-aos-delay="300">Passionate about coding, Learning, and Building future-ready solutions.</p>
+                    <p class="detail" data-aos="fade-up" data-aos-delay="400">  I am a Software Engineer passionate about developing reliable and efficient software solutions.
+                         I enjoy solving problems, exploring new technologies, and turning ideas into practical applications. 
+                        I focus on writing clean code, improving my skills, and building software that solves real-world challenges.
+
+                        Turning ideas into reality through technology.</p>
+                    <div class="btn-container" data-aos="fade-up" data-aos-delay="500">
+                        <button onclick="showSection('projects')">View Projects</button>
+                        <button onclick="showSection('contact')">Contact Me</button>
+                    </div>
+
+                    <div class="stats-row" data-aos="fade-up" data-aos-delay="600">
+                        <div class="stat-item">
+                            <span class="stat-number" data-target="9">0</span>
+                            <span class="stat-plus">+</span>
+                            <span class="stat-label">Projects Done</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-target="6">0</span>
+                            <span class="stat-plus">+</span>
+                            <span class="stat-label">Years Learning</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-target="10">0</span>
+                            <span class="stat-plus">+</span>
+                            <span class="stat-label">Technologies</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ABOUT SECTION ===== -->
+            <div id="about" class="section hidden-section">
+                <div class="containt">
+                    <p class="intro" data-aos="fade-up">Who I Am</p>
+                    <h1 data-aos="fade-up">About Me</h1>
+                    <p class="detail" data-aos="fade-up">
+                        I am a Software Engineer passionate about building reliable, efficient, and practical software solutions.
+                         I enjoy solving problems, exploring new technologies, and turning ideas into applications that address real-world needs.
+                        I focus on writing clean, maintainable code and developing my problem-solving skills. I believe in continuous learning, teamwork,
+                         and adapting to new technologies to build better software.
+                        As I continue to grow as a Software Engineer, I look forward to applying my technical knowledge, taking on new challenges, and contributing 
+                        to meaningful projects that create real impact.
+                    </p>
+
+                    <div class="about-cards" data-aos="fade-up">
+                        <div class="about-card">
+                            <i class="fa-solid fa-code about-card-icon"></i>
+                            <h3>Clean Code</h3>
+                            <p>Writing maintainable, efficient, and well-structured code</p>
+                        </div>
+                        <div class="about-card">
+                            <i class="fa-solid fa-lightbulb about-card-icon"></i>
+                            <h3>Problem Solver</h3>
+                            <p>Approaching challenges with logical and creative solutions</p>
+                        </div>
+                        <div class="about-card">
+                            <i class="fa-solid fa-users about-card-icon"></i>
+                            <h3>Team Player</h3>
+                            <p>Collaborating effectively to build great software together</p>
+                        </div>
+                    </div>
+
+                    <div class="btn-container" data-aos="fade-up">
+                        <button><i class="fa-solid fa-download"></i> Download Resume</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== SKILLS SECTION ===== -->
+            <div id="skills" class="section hidden-section">
+                <div class="containt">
+                    <p class="intro" data-aos="fade-up">What I Know</p>
+                    <h1 data-aos="fade-up">My Skills</h1>
+                    <p class="detail" data-aos="fade-up">Technologies and tools I work with to bring ideas to life.</p>
+
+                    <div class="skills-grid" data-aos="fade-up">
+                        <div class="skill-category">
+                            <h3 class="skill-category-title"><i class="fa-solid fa-code"></i> Frontend</h3>
+                            <div class="skill-items">
+                                <div class="skill-item">
+                                    <span class="skill-name">HTML5</span>
+                                    <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">CSS3 / SASS</span>
+                                    <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">JavaScript</span>
+                                    <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">React.js</span>
+                                    <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">Bootstrap / Tailwind</span>
+                                    <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h3 class="skill-category-title"><i class="fa-solid fa-server"></i> Backend</h3>
+                            <div class="skill-items">
+                                <div class="skill-item">
+                                    <span class="skill-name">Node.js</span>
+                                    <div class="skill-bar"><div class="skill-fill" data-width="70"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">Django</span>
+                                    <div class="skill-bar"><div class="skill-fill" data-width="68"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">MongoDB</span>
+                                    <div class="skill-bar"><div class="skill-fill" data-width="65"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">REST APIs</span>
+                                    <div class="skill-bar"><div class="skill-fill" data-width="72"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h3 class="skill-category-title"><i class="fa-solid fa-tools"></i> Tools & Others</h3>
+                            <div class="skill-items">
+                                <div class="skill-item">
+                                    <span class="skill-name">Git & GitHub</span>
+                                    <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">VS Code</span>
+                                    <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">Linux / Terminal</span>
+                                    <div class="skill-bar"><div class="skill-fill" data-width="60"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">Figma (Basic)</span>
+                                    <div class="skill-bar"><div class="skill-fill" data-width="55"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-tags" data-aos="fade-up">
+                        <span class="tag">C++</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">Java</span>
+                        <span class="tag">SQL</span>
+                        <span class="tag">JSON</span>
+                        <span class="tag">javascript</span>
+                        <span class="tag">Html</span>
+                        <span class="tag">Django</span>
+                        <span class="tag">Vercel</span>
+                        <span class="tag">React</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== WORK / EXPERIENCE SECTION ===== -->
+            <div id="work" class="section hidden-section">
+                <div class="containt">
+                    <p class="intro" data-aos="fade-up">My Journey</p>
+                    <h1 data-aos="fade-up">Work Experience</h1>
+                    <div class="work-container" data-aos="fade-up">
+                        <div class="work-item">
+                            <i class="fa-solid fa-briefcase work-icon"></i>
+                            <div class="work-content">
+                                <span class="year">2026 - Present</span>
+                                <h3>Software Engineer</h3>
+                                <span class="company">D.Y.Patil collage of Engineering, Pune.</span>
+                                <p>I am a passionate final-year Bachelor of Engineering (B.E.) student in Computer Engineering with a
+                                     strong focus on Full Stack Web Development. I enjoy building scalable, user-friendly web applications
+                                     and continuously expanding my skills in modern technologies and problem-solving. I am seeking opportunities
+                                     to contribute to innovative projects, learn from experienced professionals, and grow into a successful software engineer.
+.</p>
+                            </div>
+                        </div>
+                        <div class="work-item">
+                            <i class="fa-solid fa-code work-icon"></i>
+                            <div class="work-content">                              
+                                <h3>Web Developer Intern</h3>
+                                <span class="company">Cognifyz</span>
+                                <span class="company">Virtual Internship</span>
+                                <p>Successfully completed a Web Development internship, contributing to the design and development of responsive and
+                                    user-friendly web applications.
+                                    Developed interactive web pages using HTML, CSS, JavaScript, and modern web development practices.
+                                    Worked on frontend and backend features, debugging, testing, and optimizing application performance.
+                                    Gained practical experience in version control, problem-solving, and delivering projects within deadlines while
+                                    following industry best practices.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="work-item">
+                            <i class="fa-solid fa-code work-icon"></i>
+                            <div class="work-content">
+                                <h3>Full Stack Developer Intern</h3>
+                                <span class="company">CodeAlpha</span>
+                                <span class="company">Virtual Internship</span>
+                                <p> Worked as a Full Stack Developer Intern at CodeAlpha, gaining hands-on experience in developing web applications and implementing frontend and backendfunctionality.
+                                     Applied programming concepts to build practical projects, improve problem-solving skills, and understand the software development process.
+                                </p>
+                            </div>
+                        </div>
+                         <div class="work-item">
+                            <i class="fa-solid fa-code work-icon"></i>
+                            <div class="work-content">                              
+                                <h3>Data Analytics Intern</h3>
+                                <span class="company">Deloitte</span>
+                                <span class="company">Virtual Internship</span>
+                                <p> Completed Deloitte's virtual Data Analytics internship, gaining practical exposure to real-world business data analysis
+                                    and problem-solving.
+                                    Performed data cleaning, visualization, and analysis to derive meaningful business insights and support data-driven
+                                    decision-making.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="work-item">
+                            <i class="fa-solid fa-code work-icon"></i>
+                            <div class="work-content">
+                                <span class="year">Jun 2023 - Aug 2023</span>
+                                <h3>Full Stack Web Developer Intern</h3>
+                                <span class="company">Sumago Infotech Pvt.Ltd</span>
+                                <span class="company">Duration: 3 Month</span>
+                                <p>Completed a 3-month Full Stack Web Development internship, gaining hands-on experience in designing and 
+                                    developing responsive web applications.
+                                    Worked with modern web technologies to build user-friendly interfaces, develop backend functionality, and integrate databases.
+                                    Collaborated on real-world projects, implemented RESTful APIs, and followed industry best practices for coding, debugging,
+                                     and version control.
+                                    Strengthened skills in full-stack application development, problem-solving, and software development lifecycle (SDLC).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== PROJECTS SECTION ===== -->
+            <div id="projects" class="section hidden-section">
+                <div class="containt">
+                    <p class="intro" data-aos="fade-up">What I've Built</p>
+                    <h1 data-aos="fade-up">My Projects</h1>
+                    <p class="detail" data-aos="fade-up">Here are some of the key projects I've worked on, showcasing my skills in software
+                        engineering and web development.</p>
+                    <div class="projects-grid" data-aos="fade-up">
+                        <div class="project-card">
+                            <i class="fa-solid fa-laptop-code project-icon"></i>
+                            <div class="project-content">
+                                <h3>Portfolio Website</h3>
+                                <p>A personal portfolio website built with HTML and CSS, featuring smooth navigation and
+                                    detailed information about my work experience and projects.</p>
+                                <div class="project-tech">
+                                    <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <i class="fa-solid fa-briefcase project-icon"></i>
+                            <div class="project-content">
+                                <h3>Job Portal WebSite</h3>
+                                <p> A job portal website is an online platform connecting job seekers with employers, facilitating,
+                                    posting, and searching for employment opportunities. They serve as centralized hubs for job listings,
+                                    allowing users to upload resumes, apply directly.</p>
+                                <div class="project-tech">
+                                    <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <i class="fa-solid fa-cart-shopping project-icon"></i>
+                            <div class="project-content">
+                                <h3>Amazon Website</h3>
+                                <p> This project is a full-stack e-commerce web application, developed as a functional
+                                    clone of the Amazon website
+                                    to gain practical experience in building a complex, real-world platform.</p>
+                                <div class="project-tech">
+                                    <span>HTML</span><span>CSS</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <i class="fa-solid fa-film project-icon"></i>
+                            <div class="project-content">
+                                <h3>Netflix Clone</h3>
+                                <p>Its a full stack web developed website develop with proper frontend using
+                                   react gain some practical experience in building project.</p>
+                                <div class="project-tech">
+                                    <span>React</span><span>HTML</span><span>CSS</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <i class="fa-solid fa-store project-icon"></i>
+                            <div class="project-content">
+                                <h3>E-Commerce Website</h3>
+                                <p>My own e-commerce platform with product listings, cart management, and a
+                                   smooth shopping experience built for real-world usage.</p>
+                                <div class="project-tech">
+                                    <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <i class="fa-solid fa-film project-icon"></i>
+                            <div class="project-content">
+                                <h3>Movie Recommendation System</h3>
+                                <p>A recommendation engine that suggests movies based on user preferences,
+                                   genres, and ratings for a personalized viewing experience.</p>
+                                <div class="project-tech">
+                                    <span>Python</span><span>Flask</span><span>scikit-learn</span><span>JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <i class="fa-solid fa-bag-shopping project-icon"></i>
+                            <div class="project-content">
+                                <h3>E-Commerce Store</h3>
+                                <p>A complete online store with product catalog, search and filters, secure user
+                                   authentication, shopping cart, and order management for a full end-to-end
+                                   shopping experience.</p>
+                                <div class="project-tech">
+                                    <span>HTML</span><span>CSS</span><span>javascript</span><span>Python</span><span>Django</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <i class="fa-solid fa-hashtag project-icon"></i>
+                            <div class="project-content">
+                                <h3>Social Media Platform</h3>
+                                <p>A social networking platform where users can create profiles, share posts,
+                                   follow others, and like and comment, built with Django and a secure
+                                   user authentication system.</p>
+                                <div class="project-tech">
+                                    <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Python</span><span>Django</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <i class="fa-solid fa-city project-icon"></i>
+                            <div class="project-content">
+                                <h3>Smart City</h3>
+                                <p>An AI-powered citizen support platform that helps citizens discover government
+                                   schemes and understand document procedures, using RAG-based natural language
+                                   answers with official government source links.</p>
+                                <div class="project-tech">
+                                    <span>Next.js</span><span>TypeScript</span><span>Tailwind CSS</span><span>FastAPI</span><span>MongoDB</span><span>RAG</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== CONTACT SECTION ===== -->
+            <div id="contact" class="section hidden-section">
+                <div class="containt">
+                    <p class="intro" data-aos="fade-up">Get In Touch</p>
+                    <h1 data-aos="fade-up">Contact Me</h1>
+                    <p class="detail" data-aos="fade-up">Have a project in mind or want to collaborate? Feel free to reach out.</p>
+
+                    <div class="contact-wrapper" data-aos="fade-up">
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fa-solid fa-envelope contact-icon"></i>
+                                <div>
+                                    <h4>Email</h4>
+                                    <p>giteshyewale@email.com</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fa-solid fa-location-dot contact-icon"></i>
+                                <div>
+                                    <h4>Location</h4>
+                                    <p>Maharashtra, India</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fa-solid fa-phone contact-icon"></i>
+                                <div>
+                                    <h4>Phone</h4>
+                                    <p>+91 XXXXX XXXXX</p>
+                                </div>
+                            </div>
+                            <div class="contact-socials">
+                                <a href="https://github.com/GiteshYewale" target="_blank"><i class="fa-brands fa-github"></i></a>
+                                <a href="https://www.linkedin.com/in/gitesh-yewale-990211311/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                            </div>
+                        </div>
+
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-group">
+                                <input type="text" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="Subject">
+                            </div>
+                            <div class="form-group">
+                                <textarea rows="5" placeholder="Your Message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">
+                                <span>Send Message</span>
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== RIGHT SIDE: PROFILE AREA (desktop only) ===== -->
+        <div class="right-container"></div>
+
+        <!-- Profile photo + rotating circle (shown on the right on desktop) -->
+        <div class="design">
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+
+    </div>
+
+    <!-- ===== CUSTOM CURSOR (desktop only) ===== -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-outline" id="cursorOutline"></div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js?v=5" defer></script>
+</body>
+
+</html>
